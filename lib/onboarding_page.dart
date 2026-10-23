@@ -6,35 +6,44 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Expanded(
-                child: Image.asset(
-                  "assets/images/background.png",
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: Text("Continue"),
-                  ),
-                ),
-              ),
-            ],
+    return Stack(
+      alignment: AlignmentGeometry.bottomCenter,
+      children: [
+        Image.asset(
+          "assets/images/background.png",
+          height: double.infinity,
+          fit: BoxFit.cover,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: AlignmentGeometry.topCenter,
+              end: AlignmentGeometry.bottomCenter,
+              colors: [
+                Colors.transparent,
+                Theme.of(context).colorScheme.shadow.withAlpha(120),
+              ],
+            ),
           ),
         ),
-      );
+        SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                },
+                child: Text("Continue"),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
