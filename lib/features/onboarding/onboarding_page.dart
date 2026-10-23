@@ -1,4 +1,4 @@
-import 'package:book_app/login_page.dart';
+import 'package:book_app/features/auth/login_page.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingPage extends StatelessWidget {

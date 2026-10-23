@@ -1,5 +1,5 @@
-import 'package:book_app/onboarding_page.dart';
-import 'package:book_app/theme.dart';
+import 'package:book_app/features/onboarding/onboarding_page.dart';
+import 'package:book_app/core/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
