@@ -12,6 +12,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+    widget.viewModel.loadBooks();
+  }
+
+  @override
   Widget build(BuildContext context) {
     HomeViewModel viewModel = widget.viewModel;
 
@@ -24,10 +30,36 @@ class _HomePageState extends State<HomePage> {
 
         return ListView.builder(
           itemCount: viewModel.books.length,
-          itemBuilder:(context, index) {
+          itemBuilder: (context, index) {
             Book book = viewModel.books[index];
-            return Text(book.title);
-          },);
+            return Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
+                    child: Image.network(
+                      book.cover,
+                      width: double.infinity,
+                      height: 240,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [Text(book.title), Text(book.author)],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }

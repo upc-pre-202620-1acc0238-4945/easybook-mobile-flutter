@@ -1,3 +1,8 @@
+import 'package:book_app/features/home/application/get_books_use_case.dart';
+import 'package:book_app/features/home/domain/book_repository.dart';
+import 'package:book_app/features/home/infrastructure/book_repository_impl.dart';
+import 'package:book_app/features/home/presentation/home_page.dart';
+import 'package:book_app/features/home/presentation/home_view_model.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -10,9 +15,28 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
 
+  late final List<Widget> pages;
+  late final HomeViewModel viewModel;
+  late final GetBooksUseCase useCase;
+  late final BookRepository repository;
+
+  @override
+  void initState() {
+    super.initState();
+    repository = BookRepositoryImpl();
+    useCase = GetBooksUseCase(repository: repository);
+    viewModel = HomeViewModel(useCase: useCase);
+    pages = [
+      HomePage(viewModel: viewModel),
+      Text('Library'),
+      Text('Favorites'),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: SafeArea(child: pages[selectedIndex]),
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex,
         onDestinationSelected: (value) {
