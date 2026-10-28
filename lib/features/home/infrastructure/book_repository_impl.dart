@@ -1,23 +1,21 @@
 import 'package:book_app/features/home/domain/book.dart';
 import 'package:book_app/features/home/domain/book_repository.dart';
+import 'package:book_app/features/home/infrastructure/remote/book_api.dart';
+import 'package:book_app/features/home/infrastructure/remote/book_dto.dart';
 
 class BookRepositoryImpl implements BookRepository {
+  final BookApi api;
+
+  const new({required this.api});
   @override
   Future<List<Book>> getBooks() async {
-    await Future.delayed(Duration(seconds: 2));
-    return [
-      Book(
-        id: 1,
-        title: '1984',
-        author: 'George Orwell',
-        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
-      ),
-      Book(
-        id: 2,
-        title: 'Cien años de soledad',
-        author: 'Gabriel García Márquez',
-        cover: 'https://covers.openlibrary.org/b/id/1055707-L.jpg',
-      ),
-    ];
+    List<BookDto> dtos = await api.getBooks();
+
+    return dtos
+        .map(
+          (e) =>
+              Book(id: e.id, title: e.title, author: e.author, cover: e.cover),
+        )
+        .toList();
   }
 }
