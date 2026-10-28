@@ -1,6 +1,7 @@
 import 'package:book_app/features/home/application/get_books_use_case.dart';
 import 'package:book_app/features/home/domain/book_repository.dart';
 import 'package:book_app/features/home/infrastructure/book_repository_impl.dart';
+import 'package:book_app/features/home/infrastructure/remote/book_api.dart';
 import 'package:book_app/features/home/presentation/home_page.dart';
 import 'package:book_app/features/home/presentation/home_view_model.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +20,13 @@ class _MainPageState extends State<MainPage> {
   late final HomeViewModel viewModel;
   late final GetBooksUseCase useCase;
   late final BookRepository repository;
+  late final BookApi api;
 
   @override
   void initState() {
     super.initState();
-    repository = BookRepositoryImpl();
+    api = BookApi();
+    repository = BookRepositoryImpl(api: api);
     useCase = GetBooksUseCase(repository: repository);
     viewModel = HomeViewModel(useCase: useCase);
     pages = [

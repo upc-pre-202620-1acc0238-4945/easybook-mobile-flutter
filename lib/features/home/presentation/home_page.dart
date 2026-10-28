@@ -1,4 +1,5 @@
 import 'package:book_app/features/home/domain/book.dart';
+import 'package:book_app/features/home/presentation/book_card.dart';
 import 'package:book_app/features/home/presentation/home_view_model.dart';
 import 'package:flutter/material.dart';
 
@@ -32,32 +33,7 @@ class _HomePageState extends State<HomePage> {
           itemCount: viewModel.books.length,
           itemBuilder: (context, index) {
             Book book = viewModel.books[index];
-            return Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      topRight: Radius.circular(16),
-                    ),
-                    child: Image.network(
-                      book.cover,
-                      width: double.infinity,
-                      height: 240,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text(book.title), Text(book.author)],
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return BookCard(book: book);
           },
         );
       },
