@@ -4,7 +4,7 @@ class Book {
   final String author;
   final String cover;
 
-  const Book(
+  const new(
     {
       required this.id,
       required this.title,

@@ -6,7 +6,7 @@ import 'package:book_app/features/home/presentation/home_view_model.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const new({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();

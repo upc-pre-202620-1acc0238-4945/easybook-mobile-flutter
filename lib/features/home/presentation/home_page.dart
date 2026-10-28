@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
       listenable: viewModel,
       builder: (context, child) {
         if (viewModel.isLoading) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
 
         return ListView.builder(

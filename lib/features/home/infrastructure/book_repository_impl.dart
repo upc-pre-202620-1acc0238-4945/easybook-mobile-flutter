@@ -14,7 +14,7 @@ class BookRepositoryImpl implements BookRepository {
       ),
       Book(
         id: 2,
-        title: 'Cien años de soledad"',
+        title: 'Cien años de soledad',
         author: 'Gabriel García Márquez',
         cover: 'https://covers.openlibrary.org/b/id/1055707-L.jpg',
       ),

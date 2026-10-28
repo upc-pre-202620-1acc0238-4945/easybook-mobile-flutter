@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class HomeViewModel extends ChangeNotifier{
   final GetBooksUseCase useCase;
 
-  HomeViewModel({required this.useCase});
+  new({required this.useCase});
 
   List<Book> books = [];
   bool isLoading = false;
