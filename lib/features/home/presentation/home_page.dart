@@ -1,5 +1,6 @@
 import 'package:book_app/features/home/domain/book.dart';
 import 'package:book_app/features/home/presentation/book_card.dart';
+import 'package:book_app/features/home/presentation/book_detail_page.dart';
 import 'package:book_app/features/home/presentation/home_view_model.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,15 @@ class _HomePageState extends State<HomePage> {
           itemCount: viewModel.books.length,
           itemBuilder: (context, index) {
             Book book = viewModel.books[index];
-            return BookCard(book: book);
+            return GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookDetailPage(book: book),
+                ),
+              ),
+              child: BookCard(book: book),
+            );
           },
         );
       },

@@ -11,16 +11,19 @@ class BookCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-            ),
-            child: Image.network(
-              book.cover,
-              width: double.infinity,
-              height: 240,
-              fit: BoxFit.cover,
+          Hero(
+            tag: book.id,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+              child: Image.network(
+                book.cover,
+                width: double.infinity,
+                height: 240,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Padding(
