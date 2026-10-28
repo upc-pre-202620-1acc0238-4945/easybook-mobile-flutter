@@ -1,8 +1,10 @@
+import 'package:book_app/core/service_locator.dart';
 import 'package:book_app/features/onboarding/onboarding_page.dart';
 import 'package:book_app/core/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  setupDependencies();
   runApp(const MainApp());
 }
 
