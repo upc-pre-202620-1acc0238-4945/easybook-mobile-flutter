@@ -4,24 +4,13 @@ import 'package:book_app/features/home/presentation/book_detail_page.dart';
 import 'package:book_app/features/home/presentation/home_view_model.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.viewModel});
   final HomeViewModel viewModel;
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    widget.viewModel.loadBooks();
-  }
 
   @override
   Widget build(BuildContext context) {
-    HomeViewModel viewModel = widget.viewModel;
 
     return ListenableBuilder(
       listenable: viewModel,
@@ -41,7 +30,13 @@ class _HomePageState extends State<HomePage> {
                   builder: (context) => BookDetailPage(book: book),
                 ),
               ),
-              child: BookCard(book: book),
+              child: BookCard(
+                book: book,
+                isFavorite: viewModel.isFavorite(book.id),
+                onToggleFavorite: () {
+                  viewModel.toggleFavoriteBook(book.id);
+                },
+              ),
             );
           },
         );

@@ -1,4 +1,5 @@
 import 'package:book_app/core/service_locator.dart';
+import 'package:book_app/features/favorites/presentation/favorites_page.dart';
 import 'package:book_app/features/home/presentation/home_page.dart';
 import 'package:book_app/features/home/presentation/home_view_model.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class _MainPageState extends State<MainPage> {
   List<Widget> pages = [
     HomePage(viewModel: getIt<HomeViewModel>()),
     Text('Library'),
-    Text('Favorites'),
+    FavoritesPage(viewModel: getIt<HomeViewModel>()),
   ];
 
   @override

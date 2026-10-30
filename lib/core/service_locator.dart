@@ -38,7 +38,7 @@ void setupDependencies() {
   getIt.registerLazySingleton<GetBooksUseCase>(
     () => GetBooksUseCase(repository: getIt<BookRepository>()),
   );
-  getIt.registerFactory<HomeViewModel>(
+  getIt.registerLazySingleton<HomeViewModel>(
     () => HomeViewModel(
       getMovies: getIt<GetBooksUseCase>(),
       getFavorites: getIt<GetFavoritesUseCase>(),

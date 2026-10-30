@@ -13,12 +13,17 @@ class HomeViewModel extends ChangeNotifier {
     required this.getMovies,
     required this.getFavorites,
     required this.toggleFavorite,
-  });
+  }) {
+    loadBooks();
+  }
 
   List<Book> books = [];
   List<int> favoriteIds = [];
   bool isLoading = false;
   String? errorMessage;
+
+  List<Book> get favorites =>
+      books.where((book) => isFavorite(book.id)).toList();
 
   Future<void> loadBooks() async {
     isLoading = true;
