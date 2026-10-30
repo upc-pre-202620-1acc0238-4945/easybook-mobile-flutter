@@ -21,7 +21,7 @@ class OnBoardingPage extends StatelessWidget {
               end: AlignmentGeometry.bottomCenter,
               colors: [
                 Colors.transparent,
-                Theme.of(context).colorScheme.shadow.withAlpha(120),
+                Theme.of(context).colorScheme.shadow.withAlpha(200),
               ],
             ),
           ),
@@ -29,17 +29,40 @@ class OnBoardingPage extends StatelessWidget {
         SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
-                child: Text("Continue"),
-              ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+          
+              children: [
+                Text(
+                  "Welcome to Book App",
+                  style: Theme.of(context).textTheme.headlineMedium
+                      ?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+          
+                Text(
+                  "Discover and explore a world of books at your fingertips.",
+                  style: Theme.of(context).textTheme.bodyMedium
+                      ?.copyWith(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ),
+                      );
+                    },
+                    child: Text("Continue"),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
