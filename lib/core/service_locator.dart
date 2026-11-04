@@ -1,4 +1,9 @@
 import 'package:book_app/core/app_database.dart';
+import 'package:book_app/features/auth/application/login_use_case.dart';
+import 'package:book_app/features/auth/domain/auth_repository.dart';
+import 'package:book_app/features/auth/infrastructure/auth_repository_impl.dart';
+import 'package:book_app/features/auth/infrastructure/remote/auth_api.dart';
+import 'package:book_app/features/auth/presentation/login_view_model.dart';
 import 'package:book_app/features/favorites/application/get_favorites_use_case.dart';
 import 'package:book_app/features/favorites/application/toggle_favorite_use_case.dart';
 import 'package:book_app/features/favorites/domain/favorite_repository.dart';
@@ -44,5 +49,19 @@ void setupDependencies() {
       getFavorites: getIt<GetFavoritesUseCase>(),
       toggleFavorite: getIt<ToggleFavoriteUseCase>(),
     ),
+  );
+
+  getIt.registerLazySingleton<AuthApi>(() => AuthApi());
+
+  getIt.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(api: getIt<AuthApi>()),
+  );
+
+  getIt.registerLazySingleton<LoginUseCase>(
+    () => LoginUseCase(repository: getIt<AuthRepository>()),
+  );
+
+  getIt.registerLazySingleton<LoginViewModel>(
+    () => LoginViewModel(login: getIt<LoginUseCase>()),
   );
 }
