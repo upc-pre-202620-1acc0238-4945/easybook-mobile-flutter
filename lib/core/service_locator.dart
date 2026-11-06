@@ -1,4 +1,6 @@
 import 'package:book_app/core/app_database.dart';
+import 'package:book_app/core/secure_token_storage.dart';
+import 'package:book_app/core/token_storage.dart';
 import 'package:book_app/features/auth/application/login_use_case.dart';
 import 'package:book_app/features/auth/domain/auth_repository.dart';
 import 'package:book_app/features/auth/infrastructure/auth_repository_impl.dart';
@@ -14,6 +16,12 @@ import 'package:book_app/features/home/domain/book_repository.dart';
 import 'package:book_app/features/home/infrastructure/book_repository_impl.dart';
 import 'package:book_app/features/home/infrastructure/remote/book_api.dart';
 import 'package:book_app/features/home/presentation/home_view_model.dart';
+import 'package:book_app/features/library/application/get_read_books_use_case.dart';
+import 'package:book_app/features/library/domain/readlist_repository.dart';
+import 'package:book_app/features/library/infrastructure/readlist_repository_impl.dart';
+import 'package:book_app/features/library/infrastructure/remote/readlist_api.dart';
+import 'package:book_app/features/library/presentation/readlist_view_model.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -54,7 +62,10 @@ void setupDependencies() {
   getIt.registerLazySingleton<AuthApi>(() => AuthApi());
 
   getIt.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(api: getIt<AuthApi>()),
+    () => AuthRepositoryImpl(
+      api: getIt<AuthApi>(),
+      storage: getIt<TokenStorage>(),
+    ),
   );
 
   getIt.registerLazySingleton<LoginUseCase>(
@@ -63,5 +74,29 @@ void setupDependencies() {
 
   getIt.registerLazySingleton<LoginViewModel>(
     () => LoginViewModel(login: getIt<LoginUseCase>()),
+  );
+
+  getIt.registerLazySingleton<FlutterSecureStorage>(
+    () => FlutterSecureStorage(),
+  );
+
+  getIt.registerLazySingleton<TokenStorage>(
+    () => SecureTokenStorage(storage: getIt<FlutterSecureStorage>()),
+  );
+
+  getIt.registerLazySingleton<ReadlistApi>(
+    () => ReadlistApi(storage: getIt<TokenStorage>()),
+  );
+
+  getIt.registerLazySingleton<ReadlistRepository>(
+    () => ReadlistRepositoryImpl(api: getIt<ReadlistApi>()),
+  );
+
+  getIt.registerLazySingleton<GetReadBooksUseCase>(
+    () => GetReadBooksUseCase(repository: getIt<ReadlistRepository>()),
+  );
+
+  getIt.registerLazySingleton(
+    () => ReadlistViewModel(getReadBooks: getIt<GetReadBooksUseCase>()),
   );
 }
